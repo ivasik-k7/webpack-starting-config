@@ -1,48 +1,55 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = {
-    entry: "./src/js/index.js",
-    output: {
-        path: path.resolve(__dirname, "public"),
-        filename: "bundle.js",
-    },
-    mode: "development",
-    rules: [
-        {
-            test: /\.js$/,
-            exclude: /(node_modules)/,
-            use: {
-                loader: "babel-loader",
-                options: {
-                    presets: ["@babel/preset-env"],
-                },
-            },
+const PUBLIC_DIR = path.resolve(__dirname, "public");
+const SRC_DIR = path.resolve(__dirname, "src");
+
+module.exports = [
+    {
+        mode: "development",
+        entry: SRC_DIR + "/js/index.js",
+        output: {
+            path: PUBLIC_DIR,
+            filename: "js/bundle.js",
         },
-        {
-            test: /\.(sa|sc|c)ss$/,
-            use: [
+        module: {
+            rules: [
                 {
-                    loader: MiniCssExtractPlugin.loader,
-                },
-                {
-                    loader: "css-loader",
-                },
-                {
-                    loader: "postcss-loader",
-                },
-                {
-                    loader: "sass-loader",
-                    options: {
-                        implementation: require("sass"),
+                    test: /\.js$/,
+                    exclude: /(node_modules)/,
+                    use: {
+                        loader: "babel-loader",
+                        options: {
+                            presets: ["@babel/preset-env"],
+                        },
                     },
+                },
+                {
+                    test: /\.(sa|sc|c)ss$/,
+                    use: [
+                        {
+                            loader: MiniCssExtractPlugin.loader,
+                        },
+                        {
+                            loader: "css-loader",
+                        },
+                        {
+                            loader: "postcss-loader",
+                        },
+                        {
+                            loader: "sass-loader",
+                            options: {
+                                implementation: require("sass"),
+                            },
+                        },
+                    ],
                 },
             ],
         },
-    ],
-    plugins: [
-        new MiniCssExtractPlugin({
-            filename: "css/bundle.css",
-        }),
-    ],
-};
+        plugins: [
+            new MiniCssExtractPlugin({
+                filename: "css/bundle.css",
+            }),
+        ],
+    },
+];
