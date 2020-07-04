@@ -1,4 +1,12 @@
+///MODULES
 @import "./vars.scss";
+///BOOTSTRAP
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/grid";
 
 :root {
     font-size: 10px;

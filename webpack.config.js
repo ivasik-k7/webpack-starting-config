@@ -34,7 +34,13 @@ module.exports = [
                             loader: "css-loader",
                         },
                         {
-                            loader: "postcss-loader",
+                            loader: "postcss-loader", // Run post css actions
+                            options: {
+                                plugins: function () {
+                                    // post css plugins, can be exported to postcss.config.js
+                                    return [require("precss"), require("autoprefixer")];
+                                },
+                            },
                         },
                         {
                             loader: "sass-loader",
@@ -73,5 +79,9 @@ module.exports = [
                 filename: "css/bundle.css",
             }),
         ],
+        devServer: {
+            contentBase: path.join(__dirname, "public"),
+            port: 5000,
+        },
     },
 ];
